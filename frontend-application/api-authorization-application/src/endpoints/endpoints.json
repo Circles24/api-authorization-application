@@ -1,0 +1,18 @@
+{
+  "get_applications_request": {
+    "method": "GET",
+    "path": "api-authorization-application/api/v1/application"
+  },
+  "get_application_by_id_request": {
+    "method": "GET",
+    "path": "api-authorization-application/api/v1/application/"
+  },
+  "get_apis_by_application_id_request": {
+    "method": "GET",
+    "path": "api-authorization-application/api/v1/api/application/"
+  },
+  "get_api_by_id_request": {
+    "method": "GET",
+    "path": "api-authorization-application/api/v1/api/"
+  }
+}

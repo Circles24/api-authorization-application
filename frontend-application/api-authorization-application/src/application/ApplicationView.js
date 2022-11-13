@@ -1,23 +1,16 @@
 import React, { useState } from "react";
-import { useLocation } from "react-router-dom";
 import endpoints from "../endpoints/endpoints.json";
 import axios from "axios";
 import {
   PENDING_STATE,
   SUCCESSFUL_STATE,
   FAILED_STATE,
-  PATH_SEPERATOR,
 } from "../constant/constant";
 
-const getApiIdFromPath = (path) => {
-  const pathSplits = path.split(PATH_SEPERATOR);
-  return pathSplits[2];
-};
-
-const getApisInfo = (state, updateState, apiId) => {
-  const apiCallInfo = endpoints.get_api_by_id_request;
+const getApplicationInfo = (state, updateState, applicationId) => {
+  const apiCallInfo = endpoints.get_application_by_id_request;
   const method = apiCallInfo.method;
-  const url = apiCallInfo.path + apiId;
+  const url = apiCallInfo.path + applicationId;
   axios({ method: method, url: url })
     .then((response) =>
       updateState({
@@ -35,27 +28,26 @@ const getApisInfo = (state, updateState, apiId) => {
     );
 };
 
-const triggerStateTransition = (state, updateState, apiId) => {
-  console.log("api state", state);
+const triggerStateTransition = (state, updateState, applicationId) => {
+  console.log("app state", state, applicationId);
   switch (state.apiState) {
     case PENDING_STATE:
-      getApisInfo(state, updateState, apiId);
+      getApplicationInfo(state, updateState, applicationId);
       break;
     default:
       break;
   }
 };
 
-export default () => {
-  const path = useLocation().pathname;
-  const apiId = getApiIdFromPath(path);
+export default (props) => {
+  const applicationId = props["applicationId"];
   const [state, updateState] = useState({
     apiState: PENDING_STATE,
     data: null,
     error: null,
   });
 
-  triggerStateTransition(state, updateState, apiId);
+  triggerStateTransition(state, updateState, applicationId);
 
   switch (state.apiState) {
     case PENDING_STATE:
@@ -65,16 +57,13 @@ export default () => {
     case SUCCESSFUL_STATE:
       return (
         <div>
-          <div>Api Details</div>
-          <div>
-            {Object.keys(state.data).map((key) => (
-              <div key={key} className="d-inline">
-                <div>
-                  {key} : {state.data[key]}
-                </div>
+          {Object.keys(state.data).map((key) => (
+            <div key={key} className="d-inline">
+              <div>
+                {key} : {state.data[key]}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       );
     default:
