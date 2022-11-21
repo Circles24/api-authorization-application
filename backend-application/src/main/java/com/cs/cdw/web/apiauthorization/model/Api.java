@@ -17,7 +17,7 @@ public class Api extends BaseEntity<Api> {
     private String endpoint;
     private String mandatoryQueryParams;
     private String optionalQueryParams;
-    private ApiResponseFormat responseFormat;
+    private String responseFormats;
     private String serviceId;
 
     @Override
@@ -50,8 +50,8 @@ public class Api extends BaseEntity<Api> {
             this.optionalQueryParams = entity.optionalQueryParams;
         }
 
-        if (Objects.nonNull(entity.responseFormat)) {
-            this.responseFormat = entity.responseFormat;
+        if (StringUtils.isNotBlank(entity.responseFormats)) {
+            this.responseFormats = entity.responseFormats;
         }
 
         if (StringUtils.isNotBlank(entity.serviceId)) {

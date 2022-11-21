@@ -3,6 +3,7 @@ package com.cs.cdw.web.apiauthorization.controller;
 import com.cs.cdw.web.apiauthorization.model.Application;
 import com.cs.cdw.web.apiauthorization.service.ApplicationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,23 +16,23 @@ public class ApplicationController {
     private ApplicationService applicationService;
 
     @GetMapping()
-    public List<Application> getAllApisByApplicationId() {
-        return applicationService.getAll();
+    public ResponseEntity<List<Application>> getAllApisByApplicationId() {
+        return ResponseEntity.ok(applicationService.getAll());
     }
 
     @GetMapping("/{id}")
-    public Application getById(@PathVariable("id") String applicationId) {
-        return applicationService.getApplicationById(applicationId);
+    public ResponseEntity<Application> getById(@PathVariable("id") String applicationId) {
+        return ResponseEntity.ok(applicationService.getApplicationById(applicationId));
     }
 
     @PutMapping()
-    public Application create(@RequestBody Application application) {
-        return applicationService.create(application);
+    public ResponseEntity<Application> create(@RequestBody Application application) {
+        return ResponseEntity.ok(applicationService.create(application));
     }
 
     @PostMapping()
-    public Application update(@RequestBody Application application) {
-        return applicationService.update(application);
+    public ResponseEntity<Application> update(@RequestBody Application application) {
+        return ResponseEntity.ok(applicationService.update(application));
     }
 }
 

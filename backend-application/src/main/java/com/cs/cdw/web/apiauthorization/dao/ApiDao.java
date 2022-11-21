@@ -18,9 +18,9 @@ public interface ApiDao {
     @RegisterBeanMapper(Api.class)
     List<Api> getAllByApplicationId(@Bind("application_id") String applicationId);
 
-    @SqlUpdate("INSERT INTO apis (id, name, description, status, application_id, endpoint, mandatory_query_params, optional_query_params, response_format, service_id, created_by, updated_by) VALUES (:id, :name, :description, :status, :applicationId, :endpoint, :mandatoryQueryParams, :optionalQueryParams, :responseFormat, :serviceId, :createdBy, :updatedBy)")
+    @SqlUpdate("INSERT INTO apis (id, name, description, status, application_id, endpoint, mandatory_query_params, optional_query_params, response_formats, service_id, created_by, updated_by) VALUES (:id, :name, :description, :status, :applicationId, :endpoint, :mandatoryQueryParams, :optionalQueryParams, :responseFormats, :serviceId, :createdBy, :updatedBy)")
     int create(@BindBean Api api);
 
-    @SqlUpdate("UPDATE apis SET name = :name, description = :description, status = :status, application_id = :applicationId, endpoint = :endpoint, mandatory_query_params = :mandatoryQueryParams, optional_query_params = :optionalQueryParams, response_format = :responseFormat, service_id = :serviceId, created_by = :createdBy, updated_by = :updatedBy WHERE id = :id")
+    @SqlUpdate("UPDATE apis SET name = :name, description = :description, status = :status, application_id = :applicationId, endpoint = :endpoint, mandatory_query_params = :mandatoryQueryParams, optional_query_params = :optionalQueryParams, response_formats = :responseFormats, service_id = :serviceId, created_by = :createdBy, updated_by = :updatedBy WHERE id = :id")
     int update(@BindBean Api api);
 }
